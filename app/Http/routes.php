@@ -97,8 +97,8 @@ Route::group([ 'prefix' => 'admin', 'middleware' => 'auth'], function() {
 	Route::post('user/add', 'AdminController@storeUser');
 	Route::get('user/{id}/edit', 'AdminController@editUser');
 	Route::post('user/{id}/edit', 'AdminController@updateUser');
-	Route::post('user/{id}/changepassword', 'AdminController@updatePassword');
 	Route::delete('user/{id}/delete', 'AdminController@deleteUser');
+	Route::post('user/{id}/changepassword', 'AdminController@updatePassword');
 	Route::get('user/{id}/change_password', 'AdminController@changePassword');
 
 
@@ -138,5 +138,11 @@ Route::group([ 'prefix' => 'admin', 'middleware' => 'auth'], function() {
 	Route::any('orders/{id}/view', array('as' => 'adminordersview', 'uses' => 'AdminController@orderView'));
 	Route::any('orders/{id}/export', array('as' => 'adminordersexport', 'uses' => 'AdminController@orderExport'));
 	Route::any('orders/{id}/change_status', array('as' => 'adminorderschangestatus', 'uses' => 'AdminController@orderChangeStatus'));
-});
+
+	/* Profile */
+	Route::get('edit_profile', 'AdminController@editProfile');
+	Route::post('edit_profile', 'AdminController@updateProfile');
+	Route::post('changepassword', 'AdminController@updateProfilePassword');
+	Route::get('change_password', 'AdminController@changeProfilePassword');
+});	
 

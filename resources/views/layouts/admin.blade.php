@@ -22,27 +22,33 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li {{ (Request::is('/') ? 'class="active"' : '') }}>
+                        <li {{ (Request::is('*') ? 'class="active"' : '') }}>
                             <a href="{{ url ('/') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li {{ (Request::is('/admin/users') ? 'class="active"' : '') }}>
+                        <li {{ (Request::is('admin/user*') ? 'class="active"' : '') }}>
                             <a href="{{ url ('/admin/users') }}"><i class="fa fa-th-list fa-fw"></i> Users</a>
                         </li>
-                        <li {{ (Request::is('/admin/orders') ? 'class="active"' : '') }}>
+                        <li {{ (Request::is('admin/order*') ? 'class="active"' : '') }}>
                             <a href="{{ url ('/admin/orders') }}"><i class="fa fa-th-list fa-fw"></i> Orders</a>
                         </li>
-                        <li {{ (Request::is('/admin/dealers') ? 'class="active"' : '') }}>
+                        <li {{ (Request::is('admin/dealer*') ? 'class="active"' : '') }}>
                             <a href="{{ url ('/admin/dealers') }}"><i class="fa fa-th-list fa-fw"></i> Dealers</a>
                         </li>
-                        <li {{ (Request::is('/admin/manufacturers') ? 'class="active"' : '') }}>
+                        <li {{ (Request::is('admin/manufacturer*') ? 'class="active"' : '') }}>
                             <a href="{{ url ('/admin/manufacturers') }}"><i class="fa fa-th-list fa-fw"></i> Manufacturers</a>
                         </li>
                         
-                        <li {{ (Request::is('/admin/products') ? 'class="active"' : '') }}>
+                        <li {{ (Request::is('admin/product*') ? 'class="active"' : '') }}>
                             <a href="{{ url ('/admin/products') }}"><i class="fa fa-th-list fa-fw"></i> Products</a>
                         </li>
-                        
-                       
+                        <li><br/></li>
+                        <li {{ (Request::is('admin/edit_profile') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('/admin/edit_profile') }}"><i class="fa fa-th-list fa-fw"></i> Edit profile</a>
+                        </li>
+                        <li {{ (Request::is('admin/change_password') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('/admin/edit_profile') }}"><i class="fa fa-th-list fa-fw"></i> Change password</a>
+                        </li>
+                       <li><br/></li>
                        
                          <li {{ (Request::is('logout') ? 'class="active"' : '') }}>
                             <a href="{{ url ('logout') }}"><i class="fa fa-user fa-fw"></i> Logout</a>

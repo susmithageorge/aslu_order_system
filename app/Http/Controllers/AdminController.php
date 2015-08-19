@@ -542,4 +542,68 @@ class AdminController extends Controller
         $sub_category->delete();
         return redirect("admin/sub_categories")->with('success', 'Sub Category deleted successfully!');
     }
+
+    /********** Profile Edit **************/
+    public function editProfile(){
+        $id = \Auth::user()->id; 
+        $user = \App\User::findOrFail($id);
+        return view('admin/users/edit_admin_profile', ['user' => $user]);
+    }
+
+    public function updateProfile(){
+        $id = \Auth::user()->id;
+        $user = \App\User::findOrFail($id);
+        $input = Input::all();
+        $validate = Validator::make(Input::all(), [
+                'name'      => 'required',
+                'username'  => 'required||min:5|unique:users,username,'.$user->id,
+                'email'     => 'required|email',
+        ]);
+        
+        if (!$validate->fails()){
+            $user->email        = trim(Input::get('email'));
+            $user->username     = trim(Input::get('username'));
+            $user->name         = trim(Input::get('name'));
+            $user->address      = Input::get('address');
+            $user->bio          = Input::get('bio');
+            if($user->save()){
+                return Redirect::back()->with('success', 'Profile updated successfully!');
+            }else{
+                return Redirect::back()->withInput()->withErrors("Unable to save user.");
+            }    
+        }else{
+            return Redirect::back()->withInput()->with('error', 'Error: Please fix the errors')->withErrors($validate);
+        }
+    }
+
+    public function changeProfilePassword(){
+        $id = \Auth::user()->id;
+        $user = \App\User::find($id);
+        if($user){
+            return view('admin/users/change_admin_password', ['user' => $user]);
+        }else{
+            return Redirect::back()->withInput()->withErrors("Unable to find user.");
+        }
+    }
+
+    public function updateProfilePassword(){
+        $id = \Auth::user()->id;
+        $user = \App\User::findOrFail($id);
+        $input = Input::all();
+        $validate = Validator::make(Input::all(), [
+                'password'              => 'required|min:5|confirmed',
+                'password_confirmation' => 'required|min:5'
+        ]);
+        
+        if (!$validate->fails()){
+            $user->password     = Hash::make(Input::get('password'));
+            if($user->save()){
+               return redirect("admin/edit_profile")->with('success', 'Profile password changed successfully!');
+            }else{
+                return Redirect::back()->withInput()->withErrors("Unable to save user.");
+            }    
+        }else{
+            return Redirect::back()->withInput()->with('error', 'Error: Please fix the errors')->withErrors($validate);
+        }
+    }
 }

@@ -18,6 +18,7 @@
 					<tr>
 						<th>#</th>
 						<th>Name</th>
+						<th>Username</th>
 						<th>Email</th>
 						<th>Address</span></th>
 						<th>Action</th>
@@ -29,6 +30,7 @@
 						<tr >
 						<td style="width:5% !important;">{{$user->id}}</td>
 						<td>{{$user->name}}</td>
+						<td>{{$user->username}}</td>
 						<td>{{$user->email}}</td>
 						<td>{{$user->address}}</td>
 						<td style="width:15% !important;">

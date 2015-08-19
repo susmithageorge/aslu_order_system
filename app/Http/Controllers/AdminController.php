@@ -58,6 +58,7 @@ class AdminController extends Controller
         $validate = Validator::make(Input::all(), [
                 'name'      => 'required',
                 'email'     => 'required|email|unique:users',
+                'username'  => 'required|unique:users,username|min:5',
                 'password'  => 'required|min:5'
         ]);
         
@@ -68,6 +69,7 @@ class AdminController extends Controller
             $user->address      = Input::get('address');
             $user->bio          = Input::get('bio');
             $user->user_type    = 2;
+            $user->username         = trim(Input::get('username'));
             $user->password     = Hash::make(Input::get('password'));
             if($user->save()){
                 return redirect("admin/users")->with('success', 'User added successfully!');
@@ -90,11 +92,13 @@ class AdminController extends Controller
         $input = Input::all();
         $validate = Validator::make(Input::all(), [
                 'name'      => 'required',
+                'username'  => 'required||min:5|unique:users,username,'.$user->id,
                 'email'     => 'required|email',
         ]);
         
         if (!$validate->fails()){
             $user->email        = trim(Input::get('email'));
+            $user->username     = trim(Input::get('username'));
             $user->name         = trim(Input::get('name'));
             $user->address      = Input::get('address');
             $user->bio          = Input::get('bio');
@@ -105,6 +109,15 @@ class AdminController extends Controller
             }    
         }else{
             return Redirect::back()->withInput()->with('error', 'Error: Please fix the errors')->withErrors($validate);
+        }
+    }
+
+    public function changePassword($id){
+        $user = \App\User::find($id);
+        if($user){
+            return view('admin/users/change_password', ['user' => $user]);
+        }else{
+            return Redirect::back()->withInput()->withErrors("Unable to find user.");
         }
     }
 

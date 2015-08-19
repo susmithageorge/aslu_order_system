@@ -3,9 +3,9 @@
 @section('section')
 <!-- PAGE CONTENT BEGINS -->
 <div class="row" id="server_listing">
-@include('admin._partials.notifications')
 @if($orders)
 	<div class="col-sm-12">
+		@include('admin._partials.notifications')
 		<table id="simple-table" class="table table-bordered">
 											<thead>
 												<tr>

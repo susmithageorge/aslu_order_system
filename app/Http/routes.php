@@ -18,10 +18,9 @@ Route::get('logout', 'Auth\AuthController@getLogout');
 
 
 // Using A Route Closure...
-Route::get('admin', [
-    'middleware' => 'auth',
-    'uses' => 'AdminController@dashboard'
-]);
+Route::get('admin', function(){
+	return redirect('admin/dashboard');
+});
 
 // Using A Route Closure...
 Route::get('users', [
@@ -33,6 +32,8 @@ Route::any('login', function()
 {
 	return redirect('auth/login');
 });
+
+
 
 Route::get('/', function() 
 {
@@ -48,10 +49,7 @@ Route::get('/', function()
 	}
 });
 
-// GET route
-Route::get('login', function() {
-  return View::make('login');
-});
+
 
 // GET route
 Route::get('get_form', function() {
@@ -101,6 +99,7 @@ Route::group([ 'prefix' => 'admin', 'middleware' => 'auth'], function() {
 	Route::post('user/{id}/edit', 'AdminController@updateUser');
 	Route::post('user/{id}/changepassword', 'AdminController@updatePassword');
 	Route::delete('user/{id}/delete', 'AdminController@deleteUser');
+	Route::get('user/{id}/change_password', 'AdminController@changePassword');
 
 
 	// manufacturers

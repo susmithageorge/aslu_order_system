@@ -42,9 +42,9 @@ class AuthController extends Controller {
      */
     public function authenticate()
     {
-    	$username = \Request::input('email');
+    	$username = \Request::input('username');
     	$password = \Request::input('password');
-        if (\Auth::attempt(['email' => $username, 'password' => $password])) {
+        if (\Auth::attempt(['username' => $username, 'password' => $password])) {
             // Authentication passed...
              if(\Auth::user()->user_type == 1){
             	return redirect()->intended('admin/dashboard');

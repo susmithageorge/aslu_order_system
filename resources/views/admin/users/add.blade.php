@@ -30,13 +30,27 @@
 									@endif
 								</div>
 							</div>
-							<div class="form-group">
-								<label >Password</label>
-								<div>
-									<input type="password" class="form-control" name="password" value="" required>
-									@if ($errors->has('password'))
-									    <span class="alert-danger">{{ $errors->first('password') }}</span>
-									@endif
+							<div class="panel panel-default">
+								<div class="panel-heading">Login details</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label >Username</label>
+											<div>
+												<input type="text" class="form-control" name="username" value="{{ old('username') }}" required>
+												@if ($errors->has('username'))
+												    <span class="alert-danger">{{ $errors->first('username') }}</span>
+												@endif
+											</div>
+										</div>
+										<div class="form-group">
+											<label >Password</label>
+											<div>
+												<input type="password" class="form-control" name="password" value="" required>
+												@if ($errors->has('password'))
+												    <span class="alert-danger">{{ $errors->first('password') }}</span>
+											@endif
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>	
